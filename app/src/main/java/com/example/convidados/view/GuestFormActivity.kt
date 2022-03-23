@@ -43,7 +43,7 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
     private fun observe(){
         mViewModel.saveGuest.observe(this, Observer {
             //verificar
-            if (!it){
+            if (it){
                 Toast.makeText(applicationContext, "Sucesso!",Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(applicationContext, "Falha!",Toast.LENGTH_SHORT).show()
