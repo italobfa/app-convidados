@@ -8,8 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.convidados.service.model.GuestModel
 import com.example.convidados.service.repository.GuestRepository
+
 //ViewModel usando anteriormente nao tem contexto, e presico usar AndroidViewModel
-class GuestFormViewModel(application: Application): AndroidViewModel(application) {
+class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mContext = application.applicationContext
     private val mGuestRepository: GuestRepository = GuestRepository.getInstance(mContext)
@@ -17,9 +18,9 @@ class GuestFormViewModel(application: Application): AndroidViewModel(application
     private var mSaveGuest = MutableLiveData<Boolean>()
     val saveGuest: LiveData<Boolean> = mSaveGuest
 
-    fun save(name: String, presence: Boolean){
+    fun save(name: String, presence: Boolean) {
         val guest = GuestModel(name = name, presence = presence)
-        mGuestRepository.save(guest)
+        mSaveGuest.value = mGuestRepository.save(guest)
     }
 
 }
