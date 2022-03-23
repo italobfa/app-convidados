@@ -59,7 +59,7 @@ class GuestRepository private constructor(context: Context) {
                 val presence =
                     (cursor.getIntOrNull(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
 
-                guest = GuestModel(id, name, presence)
+                guest = GuestModel(id, name!!, presence)
             }
             cursor?.close()
             guest
@@ -101,7 +101,7 @@ class GuestRepository private constructor(context: Context) {
                     val presence =
                         (cursor.getIntOrNull(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
                     //tratei de forma diferente o ID, pois ele nunca vai ser nulo por causa do autoincrement do banco de dados
-                    val guest = GuestModel(id!!, name, presence)
+                    val guest = GuestModel(id!!, name!!, presence)
                     list.add(guest)
                 }
                 cursor.moveToFirst()
@@ -131,7 +131,7 @@ class GuestRepository private constructor(context: Context) {
                     val presence =
                         (cursor.getIntOrNull(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
                     //tratei de forma diferente o ID, pois ele nunca vai ser nulo por causa do autoincrement do banco de dados
-                    val guest = GuestModel(id!!, name, presence)
+                    val guest = GuestModel(id!!, name!!, presence)
                     list.add(guest)
                 }
                 cursor.moveToFirst()
@@ -161,7 +161,7 @@ class GuestRepository private constructor(context: Context) {
                     val presence =
                         (cursor.getIntOrNull(cursor.getColumnIndex(DataBaseConstants.GUEST.COLUMNS.PRESENCE)) == 1)
                     //tratei de forma diferente o ID, pois ele nunca vai ser nulo por causa do autoincrement do banco de dados
-                    val guest = GuestModel(id!!, name, presence)
+                    val guest = GuestModel(id!!, name!!, presence)
                     list.add(guest)
                 }
                 cursor.moveToFirst()
