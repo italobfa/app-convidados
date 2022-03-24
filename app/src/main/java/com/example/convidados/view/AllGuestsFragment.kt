@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.convidados.R
 import com.example.convidados.databinding.FragmentAllBinding
-import com.example.convidados.service.constants.GuestConstant
 import com.example.convidados.service.constants.GuestConstant.Companion.GUESTID
 import com.example.convidados.view.adapter.GuestAdapter
 import com.example.convidados.view.listener.GuestListener
@@ -23,7 +22,7 @@ class AllGuestsFragment : Fragment() {
     private var _binding: FragmentAllBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var homeViewModel: AllGuestsViewModel
+    private lateinit var mViewModel: AllGuestsViewModel
     private val mAdapter: GuestAdapter = GuestAdapter()
     private lateinit var mListener: GuestListener
 
@@ -32,7 +31,7 @@ class AllGuestsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        homeViewModel =
+        mViewModel =
             ViewModelProvider(this).get(AllGuestsViewModel::class.java)
 
         _binding = FragmentAllBinding.inflate(inflater, container, false)
@@ -56,6 +55,11 @@ class AllGuestsFragment : Fragment() {
                 startActivity(intent)
             }
 
+            override fun onDelete(id: Int) {
+                mViewModel.delete(id)
+                mViewModel.load()
+            }
+
         }
 
         mAdapter.attachListener(mListener)
@@ -73,11 +77,11 @@ class AllGuestsFragment : Fragment() {
     //a fragment precisa ser recarregada para mostrar o novo convidado cadastrado.
     override fun onResume() {
         super.onResume()
-        homeViewModel.load()
+        mViewModel.load()
     }
 
     private fun observer() {
-        homeViewModel.guestList.observe(viewLifecycleOwner, Observer {
+        mViewModel.guestList.observe(viewLifecycleOwner, Observer {
             mAdapter.updateGuests(it)
         })
     }
