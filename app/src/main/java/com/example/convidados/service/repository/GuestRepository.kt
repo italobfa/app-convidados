@@ -11,10 +11,10 @@ import java.lang.Exception
 
 class GuestRepository private constructor(context: Context) {
 
-    private var mGuestDataBaseHelper: GuestDataBaseHelper = GuestDataBaseHelper(context)
+    //private var mGuestDataBaseHelper: GuestDataBaseHelper = GuestDataBaseHelper(context)
 
     //Singleton
-    companion object {
+    /*companion object {
         private lateinit var repository: GuestRepository
 
         fun getInstance(context: Context): GuestRepository {
@@ -23,11 +23,11 @@ class GuestRepository private constructor(context: Context) {
             }
             return repository
         }
-    }
+    }*/
 
     fun get(id: Int): GuestModel? {
 
-        var guest: GuestModel? = null
+        /*var guest: GuestModel? = null
 
         return try {
             val db = mGuestDataBaseHelper.readableDatabase
@@ -65,11 +65,11 @@ class GuestRepository private constructor(context: Context) {
             guest
         } catch (e: Exception) {
             guest
-        }
+        }*/
     }
 
     fun getAll(): List<GuestModel> {
-        val list: MutableList<GuestModel> = ArrayList()
+        /*val list: MutableList<GuestModel> = ArrayList()
 
         return try {
             val db = mGuestDataBaseHelper.readableDatabase
@@ -110,11 +110,11 @@ class GuestRepository private constructor(context: Context) {
             list
         } catch (e: Exception) {
             list
-        }
+        }*/
     }
 
     fun getPresent(): List<GuestModel> {
-        val list: MutableList<GuestModel> = ArrayList()
+        /*val list: MutableList<GuestModel> = ArrayList()
         return try {
             val db = mGuestDataBaseHelper.readableDatabase
             //Atencao ao usar o rawQuery e escrever o SQL direto
@@ -140,11 +140,11 @@ class GuestRepository private constructor(context: Context) {
             list
         } catch (e: Exception) {
             list
-        }
+        }*/
     }
 
     fun getAbsent(): List<GuestModel> {
-        val list: MutableList<GuestModel> = ArrayList()
+        /*val list: MutableList<GuestModel> = ArrayList()
         return try {
             val db = mGuestDataBaseHelper.readableDatabase
             //Atencao ao usar o rawQuery e escrever o SQL direto
@@ -170,12 +170,12 @@ class GuestRepository private constructor(context: Context) {
             list
         } catch (e: Exception) {
             list
-        }
+        }*/
     }
 
     fun save(guest: GuestModel): Boolean {
 
-        return try {
+        /*return try {
             val db = mGuestDataBaseHelper.writableDatabase
             val contentValues = ContentValues()
             contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
@@ -184,12 +184,12 @@ class GuestRepository private constructor(context: Context) {
             true
         } catch (e: Exception) {
             false
-        }
+        }*/
     }
 
     fun update(guest: GuestModel): Boolean {
 
-        return try {
+        /*return try {
             val db = mGuestDataBaseHelper.writableDatabase
             val contentValues = ContentValues()
             contentValues.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
@@ -202,12 +202,12 @@ class GuestRepository private constructor(context: Context) {
             true
         } catch (e: Exception) {
             false
-        }
+        }*/
     }
 
     fun delete(id: Int): Boolean {
 
-        return try {
+        /*return try {
             val db = mGuestDataBaseHelper.writableDatabase
 
             val selection = DataBaseConstants.GUEST.COLUMNS.ID + " = ?"
@@ -217,6 +217,6 @@ class GuestRepository private constructor(context: Context) {
             true
         } catch (e: Exception) {
             false
-        }
+        }*/
     }
 }
