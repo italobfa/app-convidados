@@ -1,6 +1,6 @@
 package com.example.convidados.view
 
-import android.net.wifi.hotspot2.pps.HomeSp
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,19 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.convidados.R
 import com.example.convidados.databinding.FragmentAllBinding
+import com.example.convidados.service.constants.GuestConstant
+import com.example.convidados.service.constants.GuestConstant.Companion.GUESTID
 import com.example.convidados.view.adapter.GuestAdapter
+import com.example.convidados.view.listener.GuestListener
 import com.example.convidados.viewmodel.AllGuestsViewModel
-import kotlinx.android.synthetic.main.fragment_all.*
 
 class AllGuestsFragment : Fragment() {
 
     private var _binding: FragmentAllBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
     private lateinit var homeViewModel: AllGuestsViewModel
     private val mAdapter: GuestAdapter = GuestAdapter()
+    private lateinit var mListener: GuestListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,8 +44,23 @@ class AllGuestsFragment : Fragment() {
         //definindo um adapter, e a cola entre elementos e dados
         recycler.adapter = mAdapter
 
+        mListener = object : GuestListener {
+            override fun onClick(id: Int) {
+
+                val intent = Intent(context, GuestFormActivity::class.java)
+
+                val bundle = Bundle()
+                bundle.putInt(GUESTID, id)
+
+                intent.putExtras(bundle)
+                startActivity(intent)
+            }
+
+        }
+
+        mAdapter.attachListener(mListener)
+
         observer()
-        homeViewModel.load()
 
         return root
     }
@@ -54,8 +70,14 @@ class AllGuestsFragment : Fragment() {
         _binding = null
     }
 
-    private fun observer(){
-        homeViewModel.guestList.observe(viewLifecycleOwner, Observer{
+    //a fragment precisa ser recarregada para mostrar o novo convidado cadastrado.
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.load()
+    }
+
+    private fun observer() {
+        homeViewModel.guestList.observe(viewLifecycleOwner, Observer {
             mAdapter.updateGuests(it)
         })
     }
