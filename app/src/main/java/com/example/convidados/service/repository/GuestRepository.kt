@@ -1,17 +1,13 @@
 package com.example.convidados.service.repository
 
-import android.content.ContentValues
 import android.content.Context
-import androidx.core.database.getIntOrNull
-import androidx.core.database.getShortOrNull
-import androidx.core.database.getStringOrNull
-import com.example.convidados.service.constants.DataBaseConstants
 import com.example.convidados.service.model.GuestModel
-import java.lang.Exception
 
-class GuestRepository private constructor(context: Context) {
+class GuestRepository (context: Context) {
 
     //private var mGuestDataBaseHelper: GuestDataBaseHelper = GuestDataBaseHelper(context)
+
+    private val mDataBase = GuestDataBase.getDatabase(context).guestDAO()
 
     //Singleton
     /*companion object {
@@ -25,8 +21,9 @@ class GuestRepository private constructor(context: Context) {
         }
     }*/
 
-    fun get(id: Int): GuestModel? {
+    fun get(id: Int): GuestModel {
 
+        return mDataBase.get(id)
         /*var guest: GuestModel? = null
 
         return try {
@@ -69,6 +66,8 @@ class GuestRepository private constructor(context: Context) {
     }
 
     fun getAll(): List<GuestModel> {
+
+        return mDataBase.getInvited()
         /*val list: MutableList<GuestModel> = ArrayList()
 
         return try {
@@ -114,6 +113,8 @@ class GuestRepository private constructor(context: Context) {
     }
 
     fun getPresent(): List<GuestModel> {
+
+        return mDataBase.getPresent()
         /*val list: MutableList<GuestModel> = ArrayList()
         return try {
             val db = mGuestDataBaseHelper.readableDatabase
@@ -144,6 +145,8 @@ class GuestRepository private constructor(context: Context) {
     }
 
     fun getAbsent(): List<GuestModel> {
+
+        return mDataBase.getAbsent()
         /*val list: MutableList<GuestModel> = ArrayList()
         return try {
             val db = mGuestDataBaseHelper.readableDatabase
@@ -175,6 +178,7 @@ class GuestRepository private constructor(context: Context) {
 
     fun save(guest: GuestModel): Boolean {
 
+        return mDataBase.save(guest) > 0 //verificacao para retornar booleano
         /*return try {
             val db = mGuestDataBaseHelper.writableDatabase
             val contentValues = ContentValues()
@@ -189,6 +193,7 @@ class GuestRepository private constructor(context: Context) {
 
     fun update(guest: GuestModel): Boolean {
 
+        return mDataBase.update(guest) > 0
         /*return try {
             val db = mGuestDataBaseHelper.writableDatabase
             val contentValues = ContentValues()
@@ -205,8 +210,9 @@ class GuestRepository private constructor(context: Context) {
         }*/
     }
 
-    fun delete(id: Int): Boolean {
+    fun delete(guest: GuestModel) {
 
+        mDataBase.delete(guest)
         /*return try {
             val db = mGuestDataBaseHelper.writableDatabase
 
