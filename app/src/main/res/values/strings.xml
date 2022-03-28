@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_todos_convidados">Todos</string>
+    <string name="menu_todos_convidados">Convidados</string>
     <string name="menu_presentes">Presentes</string>
     <string name="menu_ausentes">Ausentes</string>
     <string name="cadastro_convidado">Cadastro de convidados</string>
